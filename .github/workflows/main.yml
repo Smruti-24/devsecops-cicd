@@ -43,13 +43,13 @@ jobs:
     # Build the Docker Image
     - name: Build Docker Image
       run: |
-        docker build -t purushottammalbishoye/devsecops-cicd:${{ env.VERSION }} .
+        docker build -t smrutiranjanpadhy/devsecops-cicd:${{ env.VERSION }} .
 
     # Run Trivy scan on the image
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: 'purushottammalbishoye/devsecops-cicd:${{ env.VERSION }}'
+        image-ref: 'smrutiranjanpadhy/devsecops-cicd:${{ env.VERSION }}'
         format: 'json'  
         exit-code: '0'   # to not fail the pipeline
         ignore-unfixed: true
@@ -60,7 +60,7 @@ jobs:
     - name: Save Trivy report
       run: |
         mkdir -p trivy-results
-        trivy image --format json -o trivy-results/report.json purushottammalbishoye/devsecops-cicd:${{ env.VERSION }}
+        trivy image --format json -o trivy-results/report.json smrutiranjanpadhy/devsecops-cicd:${{ env.VERSION }}
 
     - name: Upload Trivy Report
       uses: actions/upload-artifact@v4
@@ -71,13 +71,13 @@ jobs:
     # Push the Docker Image
     - name: Push Docker Image
       run: |
-        docker push purushottammalbishoye/devsecops-cicd:${{ env.VERSION }}
+        docker push smrutiranjanpadhy/devsecops-cicd:${{ env.VERSION }}
 
     # UPdate the K8s Manifest Files
     - name: Update K8s Manifests
       run: |
         cat Deploy/deployment.yaml
-        sed -i "s|image: purushottammalbishoye/devsecops-cicd:.*|image: purushottammalbishoye/devsecops-cicd:${{ env.VERSION }}|g" Deploy/deployment.yaml
+        sed -i "s|image: smrutiranjanpadhy/devsecops-cicd:.*|image: smrutiranjanpadhy/devsecops-cicd:${{ env.VERSION }}|g" Deploy/deployment.yaml
         cat Deploy/deployment.yaml
 
     # Update Github

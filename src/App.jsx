@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-    <h1> DevSecOps with Github Actions + tfsec + Trivy with Sealed Secretsq</h1>
+    <h1> DevSecOps with Github Actions + tfsec + TRIVY with Sealed Secrets</h1>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
